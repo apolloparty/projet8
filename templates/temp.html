@@ -1,0 +1,446 @@
+{{ obj_favorite.1.product_requested_id }}
+{{ obj_favorite.2.product_requested_id }}
+{{ obj_favorite.3.product_requested_id }}
+{{ obj_favorite.4.product_requested_id }}
+{{ obj_favorite.5.product_requested_id }}
+{{ obj_favorite.6.product_requested_id }}
+{{ obj_favorite.7.product_requested_id }}
+{{ obj_favorite.8.product_requested_id }}
+{{ obj_favorite.1}}
+
+
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}"/>
+    <link href="http://fonts.googleapis.com/css?family=Scope+One" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"/>
+    <title>PUR BEURRE</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+    <body id="page-top">
+        <!-- Navigation-->
+      <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
+        <a class="navbar-brand" href="/">
+            <img src="{% static "images/logo_pur_beurre.png" %}" alt="logo">
+            Pur Beurre
+            </a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                  <form class="navbar-search pull-left" method="POST" action="datadisp">{% csrf_token %}
+                    <!-- <input type="text" class="search-query" placeholder="Chercher" id="topEntry"> -->
+                    <input class="form-control" type="text" placeholder="Produit" name="product_search" id="topEntry">
+                  </form>
+                <li class="nav-item">
+                  <a class="nav-link" href="/register2">
+                  <img src="{% static "images/login.png" %}" alt="logo">
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="myaccount2">
+                    <img src="{% static "images/save.png" %}" alt="logo">
+                  </a>
+                </li>
+                <li class="nav-item">
+                    <form class="nav-link" action="disconect" method="POST">{% csrf_token %}
+                        <input type="hidden" value="disconect" name="btn_dis">
+                        <input type="image" src="{% static "images/logout.png" %}" alt="logo">
+                    </form>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <!-- Masthead-->
+        <header class="masthead text-white text-center" id="datahead">
+            <div class="container d-flex align-items-center flex-column">
+            <!-- Masthead Heading-->
+                <h1 class="masthead-heading text-uppercase mb-0">{{product_overall}}</h1>
+                <!-- Icon Divider-->
+                <div class="divider-custom divider-light"></div>
+                <!-- Masthead Subheading-->
+                <ul>
+                  <!-- {% for key in "1" %}
+                    <li>{{key}}</li>
+                  {% endfor %} -->
+                  </ul>
+                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">
+                  
+                </h2>
+            </div>
+        </header>
+        <!-- Portfolio Section-->
+        <section class="page-section portfolio" id="portfolio">
+            <div class="container">
+                <!-- Portfolio Section Heading-->
+                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Favoris</h2>
+                <!-- Icon Divider-->
+                <div class="divider-custom divider-light"></div>
+                <div class="divider-custom">
+                    <div class="divider-custom-line"></div>
+                </div>
+                <div class="divider-custom divider-light"></div>
+                <!-- Portfolio Grid Items-->
+                <div class="row">
+                    <!-- Portfolio Item 1-->
+                    <div class="col-md-6 col-lg-4 mb-5">
+                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
+                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                            </div>
+                            <div class="img_fix" style="position:relative;">
+                                <div class="divider-custom divider-light"></div>
+                                <img class="img1" src="{{product1.image_url}}" Alt="{% static "images/carrot.png" %}" width="300" height="300">
+                                <img class="img2" src="{% static "images/nutriscore_"%}{{product1.nutriscore}}.jpg" width="80" height="80" style="position: absolute; left:4%; top:-58%; margin-top: 53%; margin-left: 70%; border-radius: 50%;"> 
+                            </div>
+                        </div>
+                        <p class="text-center">{{product1.brand}}</br>{{product1.product}}</br>
+                            <form class="text-center" action="saved" method="POST"> {% csrf_token %}
+                                <input type="hidden" value={{product1.id}} name="btn_details">
+                                <input type="hidden" value="1" name="btn_details">
+                                <input type="hidden" value={{product_overall}} name="btn_details">
+                                <input type="image" src="{% static "images/save.png" %}" alt="logo"> Détails du produit
+                            </form>
+                        </p>
+                    </div>
+                    <!-- Portfolio Item 2-->
+                    <div class="col-md-6 col-lg-4 mb-5">
+                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal2">
+                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                            </div>
+                            <div class="img_fix" style="position:relative;">
+                                <div class="divider-custom divider-light"></div>
+                                <img class="img1" src="{{product2.image_url}}" Alt="{% static "images/carrot.png" %}" width="300" height="300">
+                                <img class="img2" src="{% static "images/nutriscore_"%}{{product2.nutriscore}}.jpg" width="80" height="80" style="position: absolute; left:4%; top:-58%; margin-top: 53%; margin-left: 70%; border-radius: 50%;">
+                            </div>
+                        </div>
+                        <p class="text-center">{{product2.brand}} </br>{{product2.product}}</br>
+                            <form class="text-center" action="saved" method="POST"> {% csrf_token %}
+                                <input type="hidden" value={{product2.id}} name="btn_details">
+                                <input type="hidden" value="2" name="btn_details">
+                                <input type="hidden" value={{product_overall}} name="btn_details">
+                                <input type="image" src="{% static "images/save.png" %}" alt="logo"> Détails du produit
+                            </form>
+                        </p>
+                    </div>
+                    <!-- Portfolio Item 3-->
+                    <div class="col-md-6 col-lg-4 mb-5">
+                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal3">
+                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                            </div>
+                            <div class="img_fix" style="position:relative;">
+                                <div class="divider-custom divider-light"></div>
+                                <img class="img1" src="{{product3.image_url}}" Alt="{% static "images/carrot.png" %}" width="300" height="300">
+                                <img class="img2" src="{% static "images/nutriscore_"%}{{product3.nutriscore}}.jpg" width="80" height="80" style="position: absolute; left:4%; top:-58%; margin-top: 53%; margin-left: 70%; border-radius: 50%;"> 
+                            </div> 
+                        </div>
+                        <p class="text-center">{{product3.brand}} </br> {{product3.product}} </br>
+                            <form class="text-center" action="saved" method="POST"> {% csrf_token %}
+                                <input type="hidden" value={{product3.id}} name="btn_details">
+                                <input type="hidden" value="3" name="btn_details">
+                                <input type="hidden" value={{product_overall}} name="btn_details">
+                                <input type="image" src="{% static "images/save.png" %}" alt="logo"> Détails du produit
+                            </form>
+                        </p>
+                    </div>
+                    <!-- Portfolio Item 4-->
+                    <div class="col-md-6 col-lg-4 mb-5 mb-lg-0">
+                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal4">
+                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                            </div>
+                            <div class="img_fix" style="position:relative;">
+                                <div class="divider-custom divider-light"></div>
+                                <img class="img1" src="{{product4.image_url}}" Alt="{% static "images/carrot.png" %}" width="300" height="300">
+                                <img class="img2" src="{% static "images/nutriscore_"%}{{product4.nutriscore}}.jpg" width="80" height="80" style="position: absolute; left:4%; top:-58%; margin-top: 53%; margin-left: 70%; border-radius: 50%;"> 
+                            </div>
+                        </div>
+                        <p class="text-center">{{product4.brand}} </br> {{product4.product}} </br>
+                            <form class="text-center" action="saved" method="POST"> {% csrf_token %}
+                                <input type="hidden" value={{product4.id}} name="btn_details">
+                                <input type="hidden" value="4" name="btn_details">
+                                <input type="hidden" value={{product_overall}} name="btn_details">
+                                <input type="image" src="{% static "images/save.png" %}" alt="logo"> Détails du produit
+                            </form>
+                        </p>
+                    </div>
+                    <!-- Portfolio Item 5-->
+                    <div class="col-md-6 col-lg-4 mb-5 mb-md-0">
+                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal5">
+                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                            </div>
+                            <div class="img_fix" style="position:relative;">
+                                <div class="divider-custom divider-light"></div>
+                                <img class="img1" src="{{product5.image_url}}" Alt="{% static "images/carrot.png" %}" width="300" height="300">
+                                <img class="img2" src="{% static "images/nutriscore_"%}{{product5.nutriscore}}.jpg" width="80" height="80" style="position: absolute; left:4%; top:-58%; margin-top: 53%; margin-left: 70%; border-radius: 50%;"> 
+                            </div>
+                        </div>
+                        <p class="text-center">{{product5.brand}} </br> {{product5.product}} </br>
+                            <form class="text-center" action="saved" method="POST"> {% csrf_token %}
+                                <input type="hidden" value={{product5.id}} name="btn_details">
+                                <input type="hidden" value="5" name="btn_details">
+                                <input type="hidden" value={{product_overall}} name="btn_details">
+                                <input type="image" src="{% static "images/save.png" %}" alt="logo"> Détails du produit
+                            </form>
+                        </p>
+                    </div>
+                    <!-- Portfolio Item 6-->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal6">
+                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                            </div>
+                            <div class="img_fix" style="position:relative;">
+                                <div class="divider-custom divider-light"></div>
+                                <img class="img1" src="{{product6.image_url}}" Alt="{% static "images/carrot.png" %}" width="300" height="300">
+                                <img class="img2" src="{% static "images/nutriscore_"%}{{product6.nutriscore}}.jpg" width="80" height="80" style="position: absolute; left:4%; top:-58%; margin-top: 53%; margin-left: 70%; border-radius: 50%;">  
+                            </div> 
+                        </div>
+                        <p class="text-center">{{product6.brand}} </br>{{product6.product}} </br>
+                            <form class="text-center" action="saved" method="POST"> {% csrf_token %}
+                                <input type="hidden" value={{product6.id}} name="btn_details">
+                                <input type="hidden" value="6" name="btn_details">
+                                <input type="hidden" value={{product_overall}} name="btn_details">
+                                <input type="image" src="{% static "images/save.png" %}" alt="logo"> Détails du produit
+                            </form>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- Contact Section-->
+        <section class="page-section" id="contact">
+            <div class="container">
+                <!-- Contact Section Heading-->
+                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Contactez-nous !</h2>
+                <!-- Icon Divider-->
+                <div class="divider-custom divider-light"></div>
+                <div class="divider-custom">
+                    <div class="divider-custom-line"></div>
+                </div>
+                <!-- Contact Section Form-->
+                <div class="row">
+                  <div class="col-sm-6">
+                    <img src="{% static "images/telephone.png" %}" class="rounded mx-auto d-block" Alt="My image">
+                    <p class="text-center">06 XX XX XX XX</p>
+                  </div>
+                  <div class="col-sm-6">
+                    <img src="{% static "images/mail.png" %}" class="rounded mx-auto d-block" Alt="My image">
+                    <p class="text-center">a@gmail.com</p>
+                  </div>
+                </div>
+            </div>
+        </section>
+        <!-- Footer-->
+        <footer class="footer text-center" id="footer">
+            <div class="container">
+                <div class="row">
+                    <!-- Footer Location-->
+                    <div class="col-lg-4 mb-5 mb-lg-0">
+                        <h4 class="text-uppercase mb-4"><a href="/">Mentions légales</a></h4>
+                    </div>
+                    <!-- Footer Social Icons-->
+                    <div class="col-lg-4 mb-5 mb-lg-0">
+                    </div>
+                    <!-- Footer About Text-->
+                    <div class="col-lg-4">
+                        <h4 class="text-uppercase mb-4"><a href="#contact">Contact</a></h4>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes)-->
+        <div class="scroll-to-top d-lg-none position-fixed">
+            <a class="js-scroll-trigger d-block text-center text-white rounded" href="#page-top"><i class="fa fa-chevron-up"></i></a>
+        </div>
+        <!-- Portfolio Modals--><!-- Portfolio Modal 1-->
+        <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-labelledby="portfolioModal1Label" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                    </button>
+                    <div class="modal-body text-center">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <!-- Portfolio Modal - Title-->
+                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" id="portfolioModal1Label">Log Cabin</h2>
+                                    <!-- Icon Divider-->
+                                    <div class="divider-custom">
+                                        <div class="divider-custom-line"></div>
+                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                        <div class="divider-custom-line"></div>
+                                    </div>
+                                    <!-- Portfolio Modal - Image--><img class="img-fluid rounded mb-5" src="assets/img/portfolio/cabin.png" alt="" /><!-- Portfolio Modal - Text-->
+                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
+                                    <button class="btn btn-primary" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Portfolio Modal 2-->
+        <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-labelledby="portfolioModal2Label" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                    </button>
+                    <div class="modal-body text-center">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <!-- Portfolio Modal - Title-->
+                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" id="portfolioModal2Label">Tasty Cake</h2>
+                                    <!-- Icon Divider-->
+                                    <div class="divider-custom">
+                                        <div class="divider-custom-line"></div>
+                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                        <div class="divider-custom-line"></div>
+                                    </div>
+                                    <!-- Portfolio Modal - Image--><img class="img-fluid rounded mb-5" src="assets/img/portfolio/cake.png" alt="" /><!-- Portfolio Modal - Text-->
+                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
+                                    <button class="btn btn-primary" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Portfolio Modal 3-->
+        <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-labelledby="portfolioModal3Label" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                    </button>
+                    <div class="modal-body text-center">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <!-- Portfolio Modal - Title-->
+                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" id="portfolioModal3Label">Circus Tent</h2>
+                                    <!-- Icon Divider-->
+                                    <div class="divider-custom">
+                                        <div class="divider-custom-line"></div>
+                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                        <div class="divider-custom-line"></div>
+                                    </div>
+                                    <!-- Portfolio Modal - Image--><img class="img-fluid rounded mb-5" src="assets/img/portfolio/circus.png" alt="" /><!-- Portfolio Modal - Text-->
+                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
+                                    <button class="btn btn-primary" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Portfolio Modal 4-->
+        <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-labelledby="portfolioModal4Label" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                    </button>
+                    <div class="modal-body text-center">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <!-- Portfolio Modal - Title-->
+                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" id="portfolioModal4Label">Controller</h2>
+                                    <!-- Icon Divider-->
+                                    <div class="divider-custom">
+                                        <div class="divider-custom-line"></div>
+                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                        <div class="divider-custom-line"></div>
+                                    </div>
+                                    <!-- Portfolio Modal - Image--><img class="img-fluid rounded mb-5" src="assets/img/portfolio/game.png" alt="" /><!-- Portfolio Modal - Text-->
+                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
+                                    <button class="btn btn-primary" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Portfolio Modal 5-->
+        <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-labelledby="portfolioModal5Label" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                    </button>
+                    <div class="modal-body text-center">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <!-- Portfolio Modal - Title-->
+                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" id="portfolioModal5Label">Locked Safe</h2>
+                                    <!-- Icon Divider-->
+                                    <div class="divider-custom">
+                                        <div class="divider-custom-line"></div>
+                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                        <div class="divider-custom-line"></div>
+                                    </div>
+                                    <!-- Portfolio Modal - Image--><img class="img-fluid rounded mb-5" src="assets/img/portfolio/safe.png" alt="" /><!-- Portfolio Modal - Text-->
+                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
+                                    <button class="btn btn-primary" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Portfolio Modal 6-->
+        <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-labelledby="portfolioModal6Label" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                    </button>
+                    <div class="modal-body text-center">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <!-- Portfolio Modal - Title-->
+                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" id="portfolioModal6Label">Submarine</h2>
+                                    <!-- Icon Divider-->
+                                    <div class="divider-custom">
+                                        <div class="divider-custom-line"></div>
+                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                        <div class="divider-custom-line"></div>
+                                    </div>
+                                    <!-- Portfolio Modal - Image--><img class="img-fluid rounded mb-5" src="assets/img/portfolio/submarine.png" alt="" /><!-- Portfolio Modal - Text-->
+                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
+                                    <button class="btn btn-primary" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

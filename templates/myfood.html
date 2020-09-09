@@ -63,12 +63,12 @@ Url: {{ obj_test.1.url }}
                     <input class="form-control" type="text" placeholder="Produit" name="product_search" id="topEntry">
                   </form>
                 <li class="nav-item">
-                  <a class="nav-link" href="/register2">
+                  <a class="nav-link" href="/client">
                   <img src="{% static "images/login.png" %}" alt="logo">
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="myaccount2">
+                  <a class="nav-link" href="myfood">
                     <img src="{% static "images/save.png" %}" alt="logo">
                   </a>
                 </li>
@@ -130,13 +130,12 @@ Url: {{ obj_test.1.url }}
                                 <input type="hidden" value={{i.id}} name="btn_details">
                                 <input type="hidden" value="1" name="btn_details">
                                 <input type="hidden" value={{product_overall}} name="btn_details">
-                                <input type="image" src="{% static "images/save.png" %}" alt="logo"> Détails du produit
+                                <button class="btn btn-success btn-sm" type="submit"><img src="{% static "images/save.png" %}"> Détails du produit</button>
                             </form>
                             <form class="text-center" action="myfood" method="POST"> {% csrf_token %}
                                 <input type="hidden" value={{i.id}} name="btn_delete">
                                 <input type="hidden" value={{product_overall}} name="btn_delete">
-                                <input type="image" src="{% static "images/save.png" %}" alt="logo"> Supprimer le favori
-                            </form>
+                                <button class="btn btn-primary" type="submit"><img src="{% static "images/save.png" %}"> Supprimer le favori</button>
                         </p>
                     </div>
                     {% endfor %}

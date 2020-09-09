@@ -31,7 +31,7 @@
                     <input class="form-control" type="text" placeholder="Produit" name="product_search" id="topEntry">
                   </form>
                 <li class="nav-item">
-                  <a class="nav-link" href="/myaccount2">
+                  <a class="nav-link" href="/client">
                   <img src="{% static "images/login.png" %}" alt="logo">
                   </a>
                 </li>
@@ -51,10 +51,12 @@
           </div>
         </nav>
         <!-- Masthead-->
-        <header class="masthead text-white text-center" id="datahead">
+        <header class="masthead text-white text-center" style="background: url('{{ obj_saved.image_url }}'); background-color: black;">
             <div class="container d-flex align-items-center flex-column">
             <!-- Masthead Heading-->
+                <div id="datahead">
                 <h1 class="masthead-heading text-uppercase mb-0">{{obj_saved.product}}</h1>
+                </div>
                 <!-- Icon Divider-->
                 <div class="divider-custom divider-light"></div>
                 <!-- Masthead Subheading-->

@@ -20,7 +20,6 @@ def home(request):
     return render(request, 'home.html')
 
 def datadisp(request):
-    x = 0
     product_generic = ""
     random_list = []
     id_list2 = []
@@ -46,6 +45,7 @@ def datadisp(request):
     else:
         context = {}
     """
+    # alternative with overall products
     if 'product_search' in request.POST:
         product_generic = (request.POST.get('product_search'))
         vanilla = Datagrab(product_generic).vanilla_product()
@@ -72,13 +72,14 @@ def datadisp(request):
     else:
         context = {}
     """
+
     #convert django quieries into dict of dict
     id_list = list(Product_vanilla.objects.filter(
         category=product_generic).values())
-    #print(id_list[0])
     id_len = len(id_list)
     print("id_len :", id_len)
 
+    # randomise selection of products
     for i in range(6):
         randomize = random.randint(1, id_len)
         random_list.append(randomize)
@@ -86,46 +87,42 @@ def datadisp(request):
     for y in random_list:
         print("y:", y)
         id_list2.append(id_list[y-1]['id'])
+    
+    # products randomized
+    for x in range(6):
+        globals()[f"obj{x}"] = Product_vanilla.objects.filter(
+            category=product_generic
+        ).filter(
+            id=id_list2[x-1]).values()
 
-    obj1 = Product_vanilla.objects.filter(
-            category=product_generic
-        ).filter(
-            id=id_list2[0]).values()
-    obj2 = Product_vanilla.objects.filter(
-            category=product_generic
-        ).filter(
-            id=id_list2[1]).values()
-    obj3 = Product_vanilla.objects.filter(
-            category=product_generic
-        ).filter(
-            id=id_list2[2]).values()
-    obj4 = Product_vanilla.objects.filter(
-            category=product_generic
-        ).filter(
-            id=id_list2[3]).values()
-    obj5 = Product_vanilla.objects.filter(
-            category=product_generic
-        ).filter(
-            id=id_list2[4]).values()
-    obj6 = Product_vanilla.objects.filter(
-            category=product_generic
-        ).filter(
-            id=id_list2[5]).values()
-    # obj_substitute
+    # products substitutes
     nutrigrade = "a"
     nutri_check = False
+    product_subs = []
+    rest = 6
     while nutri_check == False: 
-        obj_substitutes = Product_vanilla.objects.filter(
+        print("nutrigrade cherché :", nutrigrade)
+        temp = Product_vanilla.objects.filter(
                 category=product_generic
             ).filter(
                 nutriscore=nutrigrade).values()
-        if len(obj_substitutes) == 0:
+        product_sum = len(temp)
+        for indi_products in range(product_sum):
+            print("indi",indi_products)
+            product_subs.append(temp[indi_products])
+        if rest > 0:
+            rest = rest - product_sum
             nutrigrade = chr(ord(nutrigrade) + 1)
-        else:
+            if nutrigrade == "f":
+                break
+        if rest <= 0:
             nutri_check = True
-    
+        print(rest, product_sum)
+        print("nombre de produits de substitutions:", len(product_subs))
+        print(product_subs[2])
+        
     # convert django queries to str
-    obj_raw_list = [obj1, obj2, obj3, obj4, obj5, obj6, obj_substitutes]
+    obj_raw_list = [obj0, obj1, obj2, obj3, obj4, obj5, product_subs]
     for obj_temp in obj_raw_list:
         for obj in obj_temp:
             obj_list.append(obj)
@@ -137,7 +134,7 @@ def datadisp(request):
         "product4":obj_list[3],
         "product5":obj_list[4],
         "product6":obj_list[5],
-        "product_substitutes": obj_list[6],
+        "product_substitutes": product_subs,
         "product_overall":product_generic
     }
     return render(request, 'datadisp.html', context)

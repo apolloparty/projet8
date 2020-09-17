@@ -16,4 +16,13 @@ def foring():
     else:
         print("not OK")
 
-foring()
+def blabla():
+    #name = "X"
+    name = "X"
+    globals()[f"blabla{name}"] = 42
+    print(blablaX)
+
+    x = 0
+    globals()[f"blabla{x}"] = 42
+    print(blabla0)
+blabla()

@@ -507,7 +507,7 @@
                                 <input type="hidden" value={{product_substitutes.4.id}} name="btn_save">
                                 <input type="hidden" value="6" name="btn_save">
                                 <input type="hidden" value={{product_overall}} name="btn_save">
-                                <input type="image" src="{% static "images/save.png" %}" alt="logo"> Sauvegarder
+                                <button class="btn btn-primary" type="submit"><img src="{% static "images/save.png" %}"> Sauvegarder</button>
                             </form>
                             <form class="text-center" action="saved" method="POST"> {% csrf_token %}
                                 <input type="hidden" value={{product_substitutes.4.id}} name="btn_details">
@@ -565,7 +565,7 @@
                                 <input type="hidden" value={{product_substitutes.5.id}} name="btn_save">
                                 <input type="hidden" value="6" name="btn_save">
                                 <input type="hidden" value={{product_overall}} name="btn_save">
-                                <input type="image" src="{% static "images/save.png" %}" alt="logo"> Sauvegarder
+                                <button class="btn btn-primary" type="submit"><img src="{% static "images/save.png" %}"> Sauvegarder</button>
                             </form>
                             <form class="text-center" action="saved" method="POST"> {% csrf_token %}
                                 <input type="hidden" value={{product_substitutes.5.id}} name="btn_details">
@@ -624,7 +624,7 @@
                                 <input type="hidden" value={{product_substitutes.6.id}} name="btn_save">
                                 <input type="hidden" value="6" name="btn_save">
                                 <input type="hidden" value={{product_overall}} name="btn_save">
-                                <input type="image" src="{% static "images/save.png" %}" alt="logo"> Sauvegarder
+                                <button class="btn btn-primary" type="submit"><img src="{% static "images/save.png" %}"> Sauvegarder</button>
                             </form>
                             <form class="text-center" action="saved" method="POST"> {% csrf_token %}
                                 <input type="hidden" value={{product_substitutes.6.id}} name="btn_details">

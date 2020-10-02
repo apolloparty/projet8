@@ -1,0 +1,28 @@
+<header class="masthead text-white text-center" id="masterheader">
+    <div class="container d-flex align-items-center flex-column">
+    <!-- Masthead Heading-->
+        <h1 class="masthead-heading text-uppercase mb-0">Du gras, oui, mais de la qualité !</h1>
+        <!-- Icon Divider-->
+        <div class="divider-custom divider-light"></div>
+        <!-- Masthead Subheading-->
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">
+            Trouvez un produit de substitution 
+            <br>pour ceux que vous consommez 
+            <br>tous les jours.
+        </h2>
+        <div class="divider-custom divider-light"></div>   
+            <form class="form-inline justify-content-center" method="POST" action="datadisp"> {% csrf_token %}
+                <input class="form-control" type="text" placeholder="Produit" name="product_search" list="productList">
+                {% include 'subtemplates/product_list.html' %}
+                <button class="btn aqua-gradient my-0" type="submit" id="btn">Chercher</button>
+            </form>
+        <div class="divider-custom divider-light"></div>
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" role="alert">
+                {{ message }}
+            </div>
+            {% endfor%}
+        {% endif %}
+    </div>
+</header>

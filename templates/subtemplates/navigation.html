@@ -1,0 +1,40 @@
+    {% load static %}
+    <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
+        <a class="navbar-brand" href="/">
+            <img src="{% static "images/logo_pur_beurre.png" %}" alt="logo">
+            Pur Beurre
+            </a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                  <form class="navbar-search pull-left" method="POST" action="datadisp">{% csrf_token %}
+                    <!-- <input type="text" class="search-query" placeholder="Chercher" id="topEntry"> -->
+                    <input class="form-control" type="text" placeholder="Produit" name="product_search" id="topEntry" list="productList">
+                    {% include './product_list.html' %}
+                  </form>
+                <li class="nav-item">
+                  <a class="nav-link" href="/client">
+                  <img src="{% static "images/login.png" %}" alt="logo">
+                  </a>
+                </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/myfood">
+                            <img src="{% static "images/save.png" %}" alt="logo">
+                        </a>
+                    </li>
+                {%else%}
+                {# render another way #}
+                {%endif%}
+                <li class="nav-item">
+                  <form class="nav-link" action="disconect" method="POST">{% csrf_token %}
+                    <input type="hidden" value="disconect" name="btn_dis">
+                    <input type="image" src="{% static "images/logout.png" %}" alt="logo" style="margin-top: 5px;">
+                  </form>
+                </li>
+              </ul>
+            </div>
+          </div>
+    </nav>

@@ -1,7 +1,6 @@
 from datadisp.dataexploit import Datagrab
 from django.shortcuts import render, redirect
 from django.shortcuts import HttpResponse
-from django.db.models import Max
 from django.contrib import messages
 from .models import Product_vanilla
 from .models import Product_saved
@@ -20,6 +19,7 @@ def home(request):
     return render(request, 'home.html')
 
 def datadisp(request):
+    print("Datadisp request.post : ", request.POST)
     product_generic = ""
     random_list = []
     id_list2 = []
@@ -77,23 +77,20 @@ def datadisp(request):
     id_list = list(Product_vanilla.objects.filter(
         category=product_generic).values())
     id_len = len(id_list)
-    print("id_len :", id_len)
+    print("Nombre de produits produits dans la DB :", id_len)
 
     # randomise selection of products
     for i in range(6):
         randomize = random.randint(1, id_len)
         random_list.append(randomize)
     print("random_list :", random_list)
-    for y in random_list:
-        print("y:", y)
-        id_list2.append(id_list[y-1]['id'])
-    
+
     # products randomized
     for x in range(6):
         globals()[f"obj{x}"] = Product_vanilla.objects.filter(
             category=product_generic
         ).filter(
-            id=id_list2[x-1]).values()
+            id=random_list[x]).values()
 
     # products substitutes
     nutrigrade = "a"
@@ -101,15 +98,18 @@ def datadisp(request):
     product_subs = []
     rest = 6
     while nutri_check == False: 
-        print("nutrigrade cherché :", nutrigrade)
+        print("Nutrigrade cherché :", nutrigrade)
         temp = Product_vanilla.objects.filter(
                 category=product_generic
             ).filter(
                 nutriscore=nutrigrade).values()
         product_sum = len(temp)
-        for indi_products in range(product_sum):
-            print("indi",indi_products)
-            product_subs.append(temp[indi_products])
+        print(
+            "Produit de substitution de grade",
+            nutrigrade + " :", product_sum,
+            "\n")
+        for individuals_products in range(product_sum):
+            product_subs.append(temp[individuals_products])
         if rest > 0:
             rest = rest - product_sum
             nutrigrade = chr(ord(nutrigrade) + 1)
@@ -117,9 +117,7 @@ def datadisp(request):
                 break
         if rest <= 0:
             nutri_check = True
-        print(rest, product_sum)
-        print("nombre de produits de substitutions:", len(product_subs))
-        print(product_subs[2])
+    print("Somme totale des produits de substitutions:", len(product_subs), "\n")
         
     # convert django queries to str
     obj_raw_list = [obj0, obj1, obj2, obj3, obj4, obj5, product_subs]
@@ -141,8 +139,8 @@ def datadisp(request):
 
 def saved(request):
     """
-        Recupérer par getlist l'id des produits,
-        afficher l'ensemble du produit depuis PSQL
+        Get with getlist id of product,
+        display entire product from PostgreeSQL
     """
     context = {}
     if 'btn_details' in request.POST:
@@ -182,7 +180,6 @@ def myfood(request):
         print(f"ID Favori {i}: ", user_obj[i]['product_requested_id'])
         obj_favorite.append(user_obj[i]['product_requested_id'])
     for i in obj_favorite:
-        print(i)
         obj_saved = Product_vanilla.objects.get(id=i)
         obj_test.append(obj_saved)
 

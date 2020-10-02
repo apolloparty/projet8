@@ -16,40 +16,7 @@
 <body>
     <body id="page-top">
         <!-- Navigation-->
-      <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
-        <a class="navbar-brand" href="/">
-            <img src="{% static "images/logo_pur_beurre.png" %}" alt="logo">
-            Pur Beurre
-            </a>
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                  <form class="navbar-search pull-left" method="POST" action="datadisp">{% csrf_token %}
-                    <!-- <input type="text" class="search-query" placeholder="Chercher" id="topEntry"> -->
-                    <input class="form-control" type="text" placeholder="Produit" name="product_search" id="topEntry">
-                  </form>
-                <li class="nav-item">
-                  <a class="nav-link" href="/register2">
-                  <img src="{% static "images/login.png" %}" alt="logo">
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/myfood">
-                    <img src="{% static "images/save.png" %}" alt="logo">
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <form class="nav-link" action="disconect" method="POST">{% csrf_token %}
-                    <input type="hidden" value="disconect" name="btn_dis">
-                    <input type="image" src="{% static "images/logout.png" %}" alt="logo">
-                  </form>
-                </li>
-              </ul>
-            </div>
-          </div>
-      </nav>
+        {% include 'subtemplates/navigation.html' %}
         <!-- Masthead-->
         <header class="masthead text-white text-center" id="masterheader">
         <div class="divider-custom divider-light"></div>
@@ -99,23 +66,7 @@
             <div class="divider-custom divider-light"></div>
         </header>
         <!-- Footer-->
-        <footer class="footer text-center" id="footer">
-            <div class="container flex-column">
-                <div class="row">
-                    <!-- Footer Location-->
-                    <div class="col-lg-4 mb-5 mb-lg-0">
-                        <h4 class="text-uppercase mb-4"><a href="/">Mentions légales</a></h4>
-                    </div>
-                    <!-- Footer Social Icons-->
-                    <div class="col-lg-4 mb-5 mb-lg-0">
-                    </div>
-                    <!-- Footer About Text-->
-                    <div class="col-lg-4 mb-5 mb-lg-0">
-                        <h4 class="text-uppercase mb-4"><a href="#contact">Contact</a></h4>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        {% include 'subtemplates/footer.html' %}
         <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes)-->
         <div class="scroll-to-top d-lg-none position-fixed">
             <a class="js-scroll-trigger d-block text-center text-white rounded" href="#page-top"><i class="fa fa-chevron-up"></i></a>

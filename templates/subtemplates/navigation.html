@@ -12,6 +12,7 @@
                   <form class="navbar-search pull-left" method="POST" action="datadisp">{% csrf_token %}
                     <!-- <input type="text" class="search-query" placeholder="Chercher" id="topEntry"> -->
                     <input class="form-control" type="text" placeholder="Produit" name="product_search" id="topEntry" list="productList">
+                    <input type="submit" style="display:none;" />
                     {% include './product_list.html' %}
                   </form>
                 <li class="nav-item">

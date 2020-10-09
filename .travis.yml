@@ -11,14 +11,6 @@ branches:
         - staging
 
 services:
-  db:
-    image: postgres
-    ports: 
-      - "5432"
-    environment:
-      - POSTGRES_DB=cleaned
-      - POSTGRES_USER=fostin
-      - POSTGRES_PASSWORD=Hacksounet3*
-
+      postgres
 script:
       - ./manage.py test

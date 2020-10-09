@@ -6,6 +6,6 @@ DATABASES = {
         'NAME': 'cleaned',
         'USER': 'fostin',
         'PASSWORD': 'Hacksounet3*',
-        'HOST': 'localhost',
+        'HOST': '',
         'PORT': '5432',
     }

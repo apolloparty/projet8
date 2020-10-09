@@ -5,6 +5,8 @@ python:
 before_script:
       - pip install -r requirements.txt
       - pip install django-crispy-forms
+      - psql -c 'create database cleaned;' -U fostin
+
 
 branches:
     only:

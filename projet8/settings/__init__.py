@@ -126,8 +126,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    "/home/fostin/projet8/static"
-]
+if os.environ.get('ENV') == 'PRODUCTION':
+    PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 #CRISPY_TEMPLACE_PACK = 'boostrap4'

@@ -10,6 +10,8 @@ branches:
     only:
       - staging
 
+env: DJANGO_SETTINGS_MODULE="projet8.settings.travis"
+
 services:
      - postgresql
 

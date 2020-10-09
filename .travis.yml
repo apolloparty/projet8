@@ -11,6 +11,6 @@ branches:
         - staging
 
 services:
-      postgres
+      postgresql
 script:
       - ./manage.py test

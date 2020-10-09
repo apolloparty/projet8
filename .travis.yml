@@ -10,5 +10,8 @@ branches:
     only:
         - staging
 
+services:
+      - postgresql
+
 script:
       - ./manage.py test

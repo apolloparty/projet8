@@ -2,10 +2,10 @@ from . import *
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'cleaned',
-        'USER': 'fostin',
-        'PASSWORD': 'Hacksounet3*',
+        'USER': 'postgres',
+        'PASSWORD': 'blabla',
         'HOST': '',
         'PORT': '5432',
     }

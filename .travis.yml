@@ -2,13 +2,16 @@ language: python
 python:
      - "3.6"
 
-install:
+before script:
      - pip install -r requirements.txt
+     - pip install django-crispy-forms
+
+branches:
+    only:
+      - staging
 
 services:
      - postgresql
 
-before script:
-     - psql -c 'create test_db;' -U postgres
 script:
   - ./manage.py test

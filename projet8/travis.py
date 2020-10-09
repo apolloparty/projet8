@@ -1,12 +1,11 @@
 from . import *
 
- DATABASES = {
-        'default': {
-            'ENGINE':   'django.db.backends.postgresql_psycopg2',
-            'NAME':     'travisci',
-            'USER':     'postgres',
-            'PASSWORD': '',
-            'HOST':     'localhost',
-            'PORT':     '',
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'cleaned',
+        'USER': 'fostin',
+        'PASSWORD': 'Hacksounet3*',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
-}

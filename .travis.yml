@@ -13,6 +13,6 @@ branches:
 services:
       postgresql
 
-env: DJANGO_SETTINGS_MODULE=projet8.settings.travis
+env: DJANGO_SETTINGS_MODULE='projet8.settings.travis'
 script:
       - ./manage.py test

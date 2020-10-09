@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #'crispy_forms'
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [
@@ -126,8 +126,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = '/home/fostin/projet8/static_files'
+
+
 STATICFILES_DIRS = [
-    "/home/fostin/projet8/static"
+	'/home/fostin/projet8/static/',
 ]
 
-#CRISPY_TEMPLACE_PACK = 'boostrap4'
+
+CRISPY_TEMPLACE_PACK = 'boostrap4'

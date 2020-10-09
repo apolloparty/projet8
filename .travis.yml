@@ -1,0 +1,19 @@
+language: python
+python:
+      - '3.8.2'
+
+before_script:
+      - pip install -r requirements.txt
+      - pip install django-crispy-forms
+
+branches:
+    only:
+        - staging
+
+env: DJANGO_SETTINGS_MODULE="projet8.settings.travis"
+
+services:
+      - postgresql
+
+script:
+      - ./manage.py test

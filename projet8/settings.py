@@ -82,7 +82,7 @@ DATABASES = {
         'NAME': 'cleaned',
         'USER': 'fostin',
         'PASSWORD': 'Hacksounet3*',
-        'HOST': 'localhost',
+        'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }

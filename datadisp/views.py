@@ -19,7 +19,6 @@ def home(request):
     return render(request, 'home.html')
 
 def datadisp(request):
-    print("Datadisp request.post : ", request.POST)
     product_generic = ""
     random_list = []
     id_list2 = []
@@ -73,66 +72,43 @@ def datadisp(request):
         context = {}
     """
 
-    #convert django quieries into dict of dict
+    # Convert django quieries into list
     id_list = list(Product_vanilla.objects.filter(
         category=product_generic).values())
     id_len = len(id_list)
     print("Nombre de produits produits dans la DB :", id_len)
 
-    # randomise selection of products
+    # Randomise selection of products
     for i in range(6):
         randomize = random.randint(1, id_len)
         random_list.append(randomize)
     print("random_list :", random_list)
 
-    # products randomized
+    # Products randomized
+    """
     for x in range(6):
         globals()[f"obj{x}"] = Product_vanilla.objects.filter(
             category=product_generic
         ).filter(
             id=random_list[x]).values()
+    """
+    product_ids = []
+    obj_list = []
+    for x in range(6):
+        product_ids.append(id_list[random_list[x]]['id'])
+    for x in product_ids:
+        obj_list.append((list(Product_vanilla.objects.filter(
+            id=x).values())))
+    print(obj_list[0][0]['id'])
 
-    # products substitutes
-    nutrigrade = "a"
-    nutri_check = False
-    product_subs = []
-    rest = 6
-    while nutri_check == False: 
-        print("Nutrigrade cherché :", nutrigrade)
-        temp = Product_vanilla.objects.filter(
-                category=product_generic
-            ).filter(
-                nutriscore=nutrigrade).values()
-        product_sum = len(temp)
-        print(
-            "Produit de substitution de grade",
-            nutrigrade + " :", product_sum,
-            "\n")
-        for individuals_products in range(product_sum):
-            product_subs.append(temp[individuals_products])
-        if rest > 0:
-            rest = rest - product_sum
-            nutrigrade = chr(ord(nutrigrade) + 1)
-            if nutrigrade == "f":
-                break
-        if rest <= 0:
-            nutri_check = True
-    print("Somme totale des produits de substitutions:", len(product_subs), "\n")
-        
-    # convert django queries to str
-    obj_raw_list = [obj0, obj1, obj2, obj3, obj4, obj5, product_subs]
-    for obj_temp in obj_raw_list:
-        for obj in obj_temp:
-            obj_list.append(obj)
     # return context
     context = {
-        "product1":obj_list[0],
-        "product2":obj_list[1],
-        "product3":obj_list[2],
-        "product4":obj_list[3],
-        "product5":obj_list[4],
-        "product6":obj_list[5],
-        "product_substitutes": product_subs,
+        "product1":obj_list[0][0],
+        "product2":obj_list[1][0],
+        "product3":obj_list[2][0],
+        "product4":obj_list[3][0],
+        "product5":obj_list[4][0],
+        "product6":obj_list[5][0],
         "product_overall":product_generic
     }
     return render(request, 'datadisp.html', context)
@@ -193,6 +169,43 @@ def myfood(request):
 def contact(request):
     return render(request, 'contact.html')
 
+def substitutes(request):
+    if 'btn_subs' in request.POST:
+        sub_name = request.POST.get('btn_subs')
+        product_generic = sub_name
+        print(sub_name)
+    # products substitutes
+        nutrigrade = "a"
+        nutri_check = False
+        product_subs = []
+        rest = 6
+        while nutri_check == False: 
+            print("Nutrigrade cherché :", nutrigrade)
+            temp = Product_vanilla.objects.filter(
+                    category=product_generic
+                ).filter(
+                    nutriscore=nutrigrade).values()
+            product_sum = len(temp)
+            print(
+                "Produit de substitution de grade",
+                nutrigrade + " :", product_sum,
+                "\n")
+            for individuals_products in range(product_sum):
+                product_subs.append(temp[individuals_products])
+            if rest > 0:
+                rest = rest - product_sum
+                nutrigrade = chr(ord(nutrigrade) + 1)
+                if nutrigrade == "f":
+                    break
+            if rest <= 0:
+                nutri_check = True
+            print("Somme totale des produits de substitutions:", len(product_subs), "\n")
+            context = {
+            "product_substitutes": product_subs,
+            "product_overall":product_generic
+            }
+            print(len(product_subs))
+    return render(request, 'substitutes.html', context)
 """
 def account(request):
     return render(request, 'account.html')

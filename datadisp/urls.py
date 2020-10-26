@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import datadisp, home, contact, saved, myfood
+from .views import datadisp, home, contact, saved, myfood, substitutes
 
 urlpatterns = [
     path('', home, name = 'home'),
@@ -7,4 +7,5 @@ urlpatterns = [
     path('contact', contact, name = 'contact'),
     path('saved', saved, name = 'saved'),
     path('myfood', myfood, name = 'myfood'),
+    path('substitutes', substitutes, name = 'substitutes'),
 ]
